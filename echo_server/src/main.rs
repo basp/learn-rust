@@ -5,10 +5,9 @@ use std::io::Write;
 use std::io::Read;
 
 fn handle_client(mut stream: TcpStream) {
-	let mut buf;
+	let mut buf = [0; 512];
 	loop {
-		buf = [0; 512];
-		let _ = match stream.read(&mut buf) {
+		let n = match stream.read(&mut buf) {
 			Err(e) => panic!("Got an error: {}", e),
 			Ok(m) => {
 				if m == 0 {
@@ -19,7 +18,7 @@ fn handle_client(mut stream: TcpStream) {
 			},
 		};
 
-		match stream.write(&buf) {
+		match stream.write(&buf[0:n]) {
 			Err(_) => break,
 			Ok(_) => continue,
 		}
