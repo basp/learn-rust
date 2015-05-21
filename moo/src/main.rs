@@ -1,11 +1,21 @@
 #[derive(Debug)]
+enum Error {
+	NONE,
+	TYPE,
+	DIV,
+	PERM,
+	PROPNF,
+	// etc.
+}
+
+#[derive(Debug)]
 enum Val {
 	Int(i32),
 	Float(f64),
 	Str(String),
 	List(Vec<Val>),
-	Error(String),
-	Obj(i32),
+	Error(Error),
+	Obj(i32)
 }
 
 fn main() {
@@ -23,10 +33,10 @@ fn main() {
 
 	let v5 = Val::Obj(456);
 
-	let v6 = Val::Error("INVARG".to_string());
+	let v6 = Val::Error(Error::NONE);
 
 	let vals = vec![v1, v2, v3, v4, v5, v6];
-	
+
 	for v in vals {
 		println!("{:?}", v);
 	}
