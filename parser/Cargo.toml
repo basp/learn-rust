@@ -1,7 +1,0 @@
-[package]
-name = "parser"
-version = "0.1.0"
-authors = ["vagrant"]
-
-[dependencies]
-nom = "~0.3.0"

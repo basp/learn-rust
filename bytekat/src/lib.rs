@@ -41,7 +41,7 @@ impl<'a> Lexer<'a> {
 				b'"'	=> break,
 				_		=> ()
 			}
-
+			
 			tok.push(self.ch());
 			self.pos += 1;
 		}
@@ -55,6 +55,7 @@ impl<'a> Lexer<'a> {
 	fn quoted_string(&mut self) -> Option<String> {
 		let mut tok = Vec::<u8>::new();
 		self.pos += 1;
+
 		loop {
 			if self.eof() {
 				break;
@@ -63,8 +64,8 @@ impl<'a> Lexer<'a> {
 			match self.ch() {
 				b'"' 	=> { self.pos += 1; break; },
 				_ 		=> ()
-			}
-			
+			}	
+
 			tok.push(self.ch());
 			self.pos += 1;			
 		}
@@ -92,13 +93,13 @@ impl<'a> Lexer<'a> {
 
 impl<'a> Iterator for Lexer<'a> {
 	type Item = String;
+
 	fn next(&mut self) -> Option<String> {
 		self.skip_ws();
-
 		if self.eof() {
 			return None;
 		}
-
+		
 		match self.ch() {
 			b'"' 	=> self.quoted_string(),
 			_		=> self.string()
