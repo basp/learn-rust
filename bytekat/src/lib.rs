@@ -99,7 +99,7 @@ impl<'a> Iterator for Lexer<'a> {
 		if self.eof() {
 			return None;
 		}
-		
+
 		match self.ch() {
 			b'"' 	=> self.quoted_string(),
 			_		=> self.string()
